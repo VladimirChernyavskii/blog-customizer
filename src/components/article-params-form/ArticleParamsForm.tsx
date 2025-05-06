@@ -33,7 +33,7 @@ export const ArticleParamsForm = ({ currentState, onApply }: Props) => {
 		onApply(defaultArticleState);
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	// Закрытие по клику вне сайдбара
@@ -43,11 +43,11 @@ export const ArticleParamsForm = ({ currentState, onApply }: Props) => {
 				containerRef.current &&
 				!containerRef.current.contains(event.target as Node)
 			) {
-				setIsOpen(false);
+				setIsMenuOpen(false);
 			}
 		};
 
-		if (isOpen) {
+		if (isMenuOpen) {
 			document.addEventListener('mousedown', handleClickOutside);
 		} else {
 			document.removeEventListener('mousedown', handleClickOutside);
@@ -56,19 +56,21 @@ export const ArticleParamsForm = ({ currentState, onApply }: Props) => {
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [isOpen]);
+	}, [isMenuOpen]);
 
 	return (
 		<>
 			<ArrowButton
-				isOpen={isOpen}
+				isOpen={isMenuOpen}
 				onClick={() => {
-					setIsOpen((prev) => !prev);
+					setIsMenuOpen((prev) => !prev);
 				}}
 			/>
 			<aside
 				ref={containerRef}
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={clsx(styles.container, {
+					[styles.container_open]: isMenuOpen,
+				})}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmit}
