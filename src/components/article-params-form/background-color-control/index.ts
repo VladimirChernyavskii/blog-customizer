@@ -1,0 +1,1 @@
+export { BackgroundColorControl } from './BackgroundColorControl';
