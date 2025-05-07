@@ -1,0 +1,1 @@
+export { FontColorControl } from './FontColorControl';
